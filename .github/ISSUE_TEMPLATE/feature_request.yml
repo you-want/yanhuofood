@@ -1,0 +1,41 @@
+name: 功能建议
+description: 描述希望烟火食间解决的真实生活场景
+title: "[Feature] "
+labels:
+  - enhancement
+body:
+  - type: textarea
+    id: scenario
+    attributes:
+      label: 真实场景
+      description: 谁在什么情况下遇到了什么困难？
+    validations:
+      required: true
+  - type: textarea
+    id: current_solution
+    attributes:
+      label: 当前解决方式
+      description: 现在如何完成这件事？最费时或最容易出错的环节是什么？
+    validations:
+      required: true
+  - type: textarea
+    id: desired_outcome
+    attributes:
+      label: 希望达到的结果
+      description: 不必限定具体界面，说明理想结果即可。
+    validations:
+      required: true
+  - type: dropdown
+    id: importance
+    attributes:
+      label: 重要程度
+      options:
+        - 偶尔会用
+        - 每周都会用
+        - 没有它会阻碍当前流程
+    validations:
+      required: true
+  - type: textarea
+    id: additional
+    attributes:
+      label: 补充信息

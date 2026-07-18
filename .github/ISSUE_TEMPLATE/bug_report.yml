@@ -1,0 +1,58 @@
+name: 问题反馈
+description: 报告可以稳定复现的产品问题
+title: "[Bug] "
+labels:
+  - bug
+body:
+  - type: markdown
+    attributes:
+      value: |
+        请勿提交 API Key、Cookie、访问令牌、个人健康数据或其他敏感信息。
+  - type: textarea
+    id: scenario
+    attributes:
+      label: 使用场景
+      description: 问题出现在哪个页面和操作流程中？
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: 复现步骤
+      placeholder: |
+        1. 打开...
+        2. 选择...
+        3. 点击...
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: 预期结果
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: 实际结果
+    validations:
+      required: true
+  - type: input
+    id: environment
+    attributes:
+      label: 浏览器与设备
+      placeholder: 例如：Chrome 126 / macOS，Safari / iPhone 15
+    validations:
+      required: true
+  - type: textarea
+    id: additional
+    attributes:
+      label: 补充信息
+      description: 可提供已脱敏的截图或错误摘要。
+  - type: checkboxes
+    id: privacy
+    attributes:
+      label: 隐私确认
+      options:
+        - label: 我已移除密钥、令牌、Cookie 和个人敏感信息。
+          required: true
