@@ -1,0 +1,807 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>烟火食间 - 产品演示</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body {
+      width: 100%; height: 100%;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+      background: #1a1a2e;
+      color: #fff;
+      overflow: hidden;
+    }
+    #stage {
+      width: 100vw; height: 100vh;
+      position: relative;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .slide {
+      position: absolute;
+      inset: 0;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      padding: 60px 80px;
+      opacity: 0;
+      transform: scale(0.98);
+      transition: all 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+      pointer-events: none;
+    }
+    .slide.active {
+      opacity: 1;
+      transform: scale(1);
+      pointer-events: auto;
+    }
+
+    /* Slide 1: 开场痛点 */
+    .slide-pain {
+      background: linear-gradient(135deg, #ff9a56 0%, #ff6b6b 50%, #ee5a6f 100%);
+    }
+    .pain-icons {
+      display: flex; gap: 40px; margin-bottom: 50px;
+    }
+    .pain-icon {
+      width: 120px; height: 120px;
+      background: rgba(255,255,255,0.18);
+      border-radius: 24px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 52px;
+      backdrop-filter: blur(10px);
+      animation: float 3s ease-in-out infinite;
+    }
+    .pain-icon:nth-child(2) { animation-delay: 0.2s; }
+    .pain-icon:nth-child(3) { animation-delay: 0.4s; }
+    .pain-icon:nth-child(4) { animation-delay: 0.6s; }
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-12px); }
+    }
+    .pain-title {
+      font-size: 64px; font-weight: 800;
+      text-align: center; line-height: 1.15;
+      margin-bottom: 24px;
+      text-shadow: 0 4px 20px rgba(0,0,0,0.15);
+    }
+    .pain-subtitle {
+      font-size: 28px; opacity: 0.92;
+      text-align: center; max-width: 900px;
+      line-height: 1.5;
+    }
+
+    /* Slide 2: 产品定位 */
+    .slide-intro {
+      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+    }
+    .brand-name {
+      font-size: 32px; font-weight: 700;
+      color: #ff9a56; letter-spacing: 2px;
+      margin-bottom: 30px;
+    }
+    .hero-text {
+      font-size: 72px; font-weight: 900;
+      text-align: center; line-height: 1.1;
+      margin-bottom: 40px;
+      background: linear-gradient(90deg, #fff, #ffd8b8, #ff9a56);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .feature-pills {
+      display: flex; gap: 20px; flex-wrap: wrap;
+      justify-content: center; max-width: 900px;
+    }
+    .pill {
+      padding: 16px 32px;
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 50px;
+      font-size: 22px; font-weight: 500;
+    }
+
+    /* Slide 3-6: 功能演示 */
+    .slide-demo {
+      background: #f8f6f3;
+      color: #1a1a2e;
+      align-items: flex-start;
+      justify-content: flex-start;
+      padding-top: 70px;
+    }
+    .demo-header {
+      width: 100%; display: flex;
+      justify-content: space-between; align-items: center;
+      margin-bottom: 40px;
+    }
+    .demo-title {
+      font-size: 42px; font-weight: 800;
+      color: #1a1a2e;
+    }
+    .demo-step {
+      font-size: 20px; color: #888;
+      font-weight: 600;
+    }
+    .demo-content {
+      width: 100%; flex: 1;
+      display: flex; gap: 50px;
+    }
+    .demo-visual {
+      flex: 1.4;
+      background: #fff;
+      border-radius: 24px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.08);
+      padding: 40px;
+      position: relative;
+      overflow: hidden;
+    }
+    .demo-side {
+      flex: 1;
+      display: flex; flex-direction: column;
+      justify-content: center; gap: 28px;
+    }
+    .demo-point {
+      display: flex; align-items: flex-start; gap: 18px;
+      opacity: 0;
+      transform: translateX(30px);
+      transition: all 0.6s ease;
+    }
+    .demo-point.visible {
+      opacity: 1;
+      transform: translateX(0);
+    }
+    .point-num {
+      width: 40px; height: 40px;
+      background: #ff9a56; color: #fff;
+      border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 800; font-size: 18px;
+      flex-shrink: 0;
+    }
+    .point-text {
+      font-size: 24px; line-height: 1.5;
+      color: #333;
+    }
+    .point-text strong { color: #1a1a2e; }
+
+    /* 模拟 UI */
+    .mock-nav {
+      display: flex; gap: 24px; margin-bottom: 30px;
+      padding-bottom: 20px; border-bottom: 2px solid #f0f0f0;
+    }
+    .mock-nav-item {
+      font-size: 16px; color: #666;
+    }
+    .mock-nav-item.active {
+      color: #ff9a56; font-weight: 700;
+    }
+    .mock-form-row {
+      display: flex; gap: 20px; margin-bottom: 20px;
+    }
+    .mock-field {
+      flex: 1;
+    }
+    .mock-label {
+      font-size: 14px; color: #888; margin-bottom: 8px;
+    }
+    .mock-input {
+      height: 48px;
+      background: #f8f8f8;
+      border-radius: 12px;
+      display: flex; align-items: center;
+      padding: 0 16px;
+      font-size: 16px; color: #333;
+    }
+    .mock-tags {
+      display: flex; flex-wrap: wrap; gap: 10px;
+    }
+    .mock-tag {
+      padding: 8px 16px;
+      background: #fff5ee;
+      color: #ff6b35;
+      border-radius: 20px;
+      font-size: 14px; font-weight: 500;
+      border: 1px solid #ffd4c2;
+    }
+    .mock-btn {
+      display: inline-block;
+      padding: 16px 36px;
+      background: linear-gradient(90deg, #ff9a56, #ff6b6b);
+      color: #fff; border-radius: 14px;
+      font-size: 18px; font-weight: 700;
+      margin-top: 20px;
+      box-shadow: 0 8px 24px rgba(255,107,107,0.3);
+    }
+    .mock-menu-grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 12px;
+    }
+    .mock-day {
+      background: #fff8f3;
+      border-radius: 16px;
+      padding: 16px 12px;
+      text-align: center;
+      border: 1px solid #ffe8d9;
+    }
+    .mock-day-name {
+      font-size: 14px; color: #ff9a56; font-weight: 700;
+      margin-bottom: 12px;
+    }
+    .mock-meal {
+      font-size: 13px; color: #555;
+      margin-bottom: 8px;
+      line-height: 1.3;
+    }
+    .mock-nutrition {
+      display: flex; gap: 30px;
+      margin-top: 20px;
+    }
+    .mock-nutri-item {
+      text-align: center;
+    }
+    .mock-nutri-value {
+      font-size: 36px; font-weight: 800; color: #ff9a56;
+    }
+    .mock-nutri-label {
+      font-size: 14px; color: #888; margin-top: 4px;
+    }
+    .mock-progress {
+      margin-top: 24px;
+    }
+    .mock-progress-bar {
+      height: 12px;
+      background: #f0f0f0;
+      border-radius: 6px;
+      overflow: hidden;
+      margin-top: 8px;
+    }
+    .mock-progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #ff9a56, #ff6b6b);
+      border-radius: 6px;
+      width: 78%;
+    }
+    .mock-shopping {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+    .mock-cat {
+      background: #fff;
+      border-radius: 16px;
+      padding: 20px;
+      border: 1px solid #f0f0f0;
+    }
+    .mock-cat-title {
+      font-size: 16px; font-weight: 700;
+      color: #1a1a2e; margin-bottom: 12px;
+    }
+    .mock-cat-item {
+      font-size: 14px; color: #666;
+      padding: 6px 0;
+      border-bottom: 1px dashed #f0f0f0;
+    }
+    .mock-cat-item:last-child { border-bottom: none; }
+
+    /* Slide 7: 场景矩阵 */
+    .slide-scenes {
+      background: linear-gradient(135deg, #1a1a2e 0%, #2d1b69 50%, #1a1a2e 100%);
+    }
+    .scenes-title {
+      font-size: 56px; font-weight: 900;
+      text-align: center; margin-bottom: 50px;
+    }
+    .scenes-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+      max-width: 1100px;
+    }
+    .scene-card {
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 20px;
+      padding: 32px 24px;
+      text-align: center;
+      backdrop-filter: blur(10px);
+      transition: all 0.3s ease;
+    }
+    .scene-card:hover {
+      transform: translateY(-8px);
+      background: rgba(255,255,255,0.12);
+    }
+    .scene-icon {
+      font-size: 48px; margin-bottom: 16px;
+    }
+    .scene-name {
+      font-size: 20px; font-weight: 700;
+    }
+
+    /* Slide 8: 结尾 */
+    .slide-end {
+      background: linear-gradient(135deg, #ff9a56 0%, #ff6b6b 100%);
+    }
+    .end-logo {
+      font-size: 48px; font-weight: 900;
+      margin-bottom: 20px;
+      letter-spacing: 4px;
+    }
+    .end-slogan {
+      font-size: 52px; font-weight: 800;
+      text-align: center; line-height: 1.2;
+      margin-bottom: 50px;
+    }
+    .end-url {
+      font-size: 32px;
+      background: rgba(255,255,255,0.2);
+      padding: 18px 48px;
+      border-radius: 50px;
+      font-weight: 600;
+      letter-spacing: 1px;
+    }
+
+    /* 字幕条 */
+    .caption-bar {
+      position: fixed;
+      bottom: 0; left: 0; right: 0;
+      background: rgba(0,0,0,0.75);
+      backdrop-filter: blur(16px);
+      padding: 28px 80px;
+      display: flex; align-items: center; justify-content: center;
+      min-height: 110px;
+      z-index: 100;
+    }
+    .caption-text {
+      font-size: 26px;
+      line-height: 1.6;
+      text-align: center;
+      max-width: 1200px;
+      color: #fff;
+    }
+    .progress-timeline {
+      position: fixed;
+      bottom: 110px; left: 0; right: 0;
+      height: 4px;
+      background: rgba(255,255,255,0.15);
+      z-index: 100;
+    }
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #ff9a56, #ff6b6b);
+      width: 0%;
+      transition: width 0.3s linear;
+    }
+
+    /* 控制按钮 */
+    .controls {
+      position: fixed;
+      top: 24px; right: 24px;
+      display: flex; gap: 12px;
+      z-index: 200;
+    }
+    .control-btn {
+      width: 44px; height: 44px;
+      border-radius: 12px;
+      background: rgba(0,0,0,0.4);
+      color: #fff;
+      border: 1px solid rgba(255,255,255,0.2);
+      cursor: pointer;
+      font-size: 18px;
+      display: flex; align-items: center; justify-content: center;
+      backdrop-filter: blur(10px);
+    }
+    .control-btn:hover {
+      background: rgba(0,0,0,0.6);
+    }
+
+    /* 动画 */
+    .fade-in-up {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: all 0.8s ease;
+    }
+    .fade-in-up.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
+</head>
+<body>
+  <div id="stage">
+    <!-- Slide 1: 痛点开场 -->
+    <div class="slide slide-pain active" data-duration="8000">
+      <div class="pain-icons">
+        <div class="pain-icon">🤔</div>
+        <div class="pain-icon">🥗</div>
+        <div class="pain-icon">📝</div>
+        <div class="pain-icon">😵‍💫</div>
+      </div>
+      <h1 class="pain-title fade-in-up">每天我们都要做一个决定：<br>吃什么</h1>
+      <p class="pain-subtitle fade-in-up">想菜谱、配荤素、管忌口、写采购单……<br>听起来很小，却消耗了大量时间和精力。</p>
+    </div>
+
+    <!-- Slide 2: 产品定位 -->
+    <div class="slide slide-intro" data-duration="7000">
+      <div class="brand-name fade-in-up">烟火食间 · yanhuofood.com</div>
+      <h1 class="hero-text fade-in-up">把吃什么<br>变成一份可以执行的计划</h1>
+      <div class="feature-pills">
+        <div class="pill fade-in-up">AI 智能菜单规划</div>
+        <div class="pill fade-in-up">营养健康估算</div>
+        <div class="pill fade-in-up">自动采购清单</div>
+      </div>
+    </div>
+
+    <!-- Slide 3: 生成菜单 -->
+    <div class="slide slide-demo" data-duration="12000">
+      <div class="demo-header">
+        <h2 class="demo-title">输入条件，AI 生成一周菜单</h2>
+        <span class="demo-step">核心功能 01</span>
+      </div>
+      <div class="demo-content">
+        <div class="demo-visual">
+          <div class="mock-nav">
+            <div class="mock-nav-item active">智能菜单</div>
+            <div class="mock-nav-item">今天吃什么</div>
+            <div class="mock-nav-item">食材清单</div>
+            <div class="mock-nav-item">食谱库</div>
+          </div>
+          <div class="mock-form-row">
+            <div class="mock-field">
+              <div class="mock-label">用餐人数</div>
+              <div class="mock-input">3 人</div>
+            </div>
+            <div class="mock-field">
+              <div class="mock-label">计划天数</div>
+              <div class="mock-input">7 天</div>
+            </div>
+            <div class="mock-field">
+              <div class="mock-label">每天餐次</div>
+              <div class="mock-input">3 餐</div>
+            </div>
+          </div>
+          <div class="mock-form-row">
+            <div class="mock-field" style="flex: 2;">
+              <div class="mock-label">口味与健康目标</div>
+              <div class="mock-tags">
+                <div class="mock-tag">家常口味</div>
+                <div class="mock-tag">清淡</div>
+                <div class="mock-tag">减脂</div>
+                <div class="mock-tag">儿童成长</div>
+              </div>
+            </div>
+            <div class="mock-field">
+              <div class="mock-label">忌口</div>
+              <div class="mock-input">海鲜、花生</div>
+            </div>
+          </div>
+          <div class="mock-btn">✨ 生成本周菜单</div>
+        </div>
+        <div class="demo-side">
+          <div class="demo-point">
+            <div class="point-num">1</div>
+            <div class="point-text"><strong>选择场景模板</strong><br>三口之家、一人省时、减脂高蛋白，一键开始</div>
+          </div>
+          <div class="demo-point">
+            <div class="point-num">2</div>
+            <div class="point-text"><strong>调整偏好条件</strong><br>人数、口味、忌口、预算、烹饪时间都可定制</div>
+          </div>
+          <div class="demo-point">
+            <div class="point-num">3</div>
+            <div class="point-text"><strong>一键生成菜单</strong><br>7 天 21 餐，每餐搭配清晰可见</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 4: 可调整 -->
+    <div class="slide slide-demo" data-duration="10000">
+      <div class="demo-header">
+        <h2 class="demo-title">不喜欢的菜，一键替换</h2>
+        <span class="demo-step">核心功能 02</span>
+      </div>
+      <div class="demo-content">
+        <div class="demo-visual">
+          <div class="mock-menu-grid">
+            <div class="mock-day">
+              <div class="mock-day-name">周一</div>
+              <div class="mock-meal">早餐：燕麦粥</div>
+              <div class="mock-meal">午餐：番茄牛腩</div>
+              <div class="mock-meal">晚餐：清蒸鱼</div>
+            </div>
+            <div class="mock-day">
+              <div class="mock-day-name">周二</div>
+              <div class="mock-meal">早餐：鸡蛋三明治</div>
+              <div class="mock-meal">午餐：宫保鸡丁</div>
+              <div class="mock-meal">晚餐：蒜蓉西兰花</div>
+            </div>
+            <div class="mock-day">
+              <div class="mock-day-name">周三</div>
+              <div class="mock-meal">早餐：南瓜小米粥</div>
+              <div class="mock-meal">午餐：香菇蒸鸡</div>
+              <div class="mock-meal" style="color:#ff6b6b;font-weight:700;">晚餐：红烧肉 ⚡ 替换</div>
+            </div>
+            <div class="mock-day">
+              <div class="mock-day-name">周四</div>
+              <div class="mock-meal">早餐：酸奶水果碗</div>
+              <div class="mock-meal">午餐：彩椒牛肉丝</div>
+              <div class="mock-meal">晚餐：豆腐蔬菜汤</div>
+            </div>
+            <div class="mock-day">
+              <div class="mock-day-name">周五</div>
+              <div class="mock-meal">早餐：全麦面包</div>
+              <div class="mock-meal">午餐：西兰花炒虾仁</div>
+              <div class="mock-meal">晚餐：鸡肉焖饭</div>
+            </div>
+            <div class="mock-day">
+              <div class="mock-day-name">周六</div>
+              <div class="mock-meal">早餐：皮蛋瘦肉粥</div>
+              <div class="mock-meal">午餐：香煎三文鱼</div>
+              <div class="mock-meal">晚餐：番茄鸡蛋面</div>
+            </div>
+            <div class="mock-day">
+              <div class="mock-day-name">周日</div>
+              <div class="mock-meal">早餐：豆浆油条</div>
+              <div class="mock-meal">午餐：白切鸡</div>
+              <div class="mock-meal">晚餐：时令蔬菜</div>
+            </div>
+          </div>
+        </div>
+        <div class="demo-side">
+          <div class="demo-point">
+            <div class="point-num">1</div>
+            <div class="point-text"><strong>一键替换</strong><br>不爱吃、太难买、太复杂，都能换</div>
+          </div>
+          <div class="demo-point">
+            <div class="point-num">2</div>
+            <div class="point-text"><strong>反馈偏好</strong><br>标记"喜欢""不想再吃""做过了"</div>
+          </div>
+          <div class="demo-point">
+            <div class="point-num">3</div>
+            <div class="point-text"><strong>越用越懂你</strong><br>下次生成自动避开不爱吃的菜</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 5: 健康饮食 -->
+    <div class="slide slide-demo" data-duration="9000">
+      <div class="demo-header">
+        <h2 class="demo-title">把健康目标写进菜单</h2>
+        <span class="demo-step">核心功能 03</span>
+      </div>
+      <div class="demo-content">
+        <div class="demo-visual" style="display:flex;flex-direction:column;justify-content:center;">
+          <div class="mock-nutrition">
+            <div class="mock-nutri-item">
+              <div class="mock-nutri-value">12,460</div>
+              <div class="mock-nutri-label">本周总热量 kcal</div>
+            </div>
+            <div class="mock-nutri-item">
+              <div class="mock-nutri-value">1,780</div>
+              <div class="mock-nutri-label">日均热量 kcal</div>
+            </div>
+            <div class="mock-nutri-item">
+              <div class="mock-nutri-value">1,850</div>
+              <div class="mock-nutri-label">推荐摄入 kcal</div>
+            </div>
+            <div class="mock-nutri-item">
+              <div class="mock-nutri-value">96%</div>
+              <div class="mock-nutri-label">目标达成</div>
+            </div>
+          </div>
+          <div class="mock-progress">
+            <div style="display:flex;justify-content:space-between;font-size:16px;color:#666;">
+              <span>减脂目标进度</span>
+              <span>96%</span>
+            </div>
+            <div class="mock-progress-bar">
+              <div class="mock-progress-fill"></div>
+            </div>
+          </div>
+          <div class="mock-tags" style="margin-top:30px;justify-content:center;">
+            <div class="mock-tag">减脂</div>
+            <div class="mock-tag">控糖</div>
+            <div class="mock-tag">高蛋白</div>
+            <div class="mock-tag">儿童成长</div>
+            <div class="mock-tag">低盐低油</div>
+          </div>
+        </div>
+        <div class="demo-side">
+          <div class="demo-point">
+            <div class="point-num">1</div>
+            <div class="point-text"><strong>按目标生成</strong><br>减脂、控糖、增肌、儿童成长，AI 主动控制营养结构</div>
+          </div>
+          <div class="demo-point">
+            <div class="point-num">2</div>
+            <div class="point-text"><strong>热量自动估算</strong><br>每餐热量清晰，目标达成进度一目了然</div>
+          </div>
+          <div class="demo-point">
+            <div class="point-num">3</div>
+            <div class="point-text"><strong>荤素自动搭配</strong><br>避免一餐全是肉或全是素，结构更均衡</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 6: 采购清单 -->
+    <div class="slide slide-demo" data-duration="9000">
+      <div class="demo-header">
+        <h2 class="demo-title">菜单确定，采购清单自动生成</h2>
+        <span class="demo-step">核心功能 04</span>
+      </div>
+      <div class="demo-content">
+        <div class="demo-visual">
+          <div class="mock-shopping">
+            <div class="mock-cat">
+              <div class="mock-cat-title">🥩 肉类</div>
+              <div class="mock-cat-item">☑ 牛腩 500g</div>
+              <div class="mock-cat-item">☑ 鸡胸肉 300g</div>
+              <div class="mock-cat-item">☐ 三文鱼 200g</div>
+              <div class="mock-cat-item">☑ 虾仁 150g</div>
+            </div>
+            <div class="mock-cat">
+              <div class="mock-cat-title">🥬 蔬菜</div>
+              <div class="mock-cat-item">☑ 番茄 4 个</div>
+              <div class="mock-cat-item">☑ 西兰花 2 颗</div>
+              <div class="mock-cat-item">☐ 菠菜 300g</div>
+              <div class="mock-cat-item">☑ 胡萝卜 2 根</div>
+            </div>
+            <div class="mock-cat">
+              <div class="mock-cat-title">🍚 主食</div>
+              <div class="mock-cat-item">☑ 大米 2kg</div>
+              <div class="mock-cat-item">☑ 面条 500g</div>
+              <div class="mock-cat-item">☐ 燕麦 300g</div>
+              <div class="mock-cat-item">☑ 全麦面包 1 袋</div>
+            </div>
+          </div>
+          <div class="mock-tags" style="margin-top:24px;justify-content:center;">
+            <div class="mock-tag">按日期筛选</div>
+            <div class="mock-tag">标记家中已有</div>
+            <div class="mock-tag">导出图片</div>
+            <div class="mock-tag">导出 CSV</div>
+            <div class="mock-tag">复制文字</div>
+          </div>
+        </div>
+        <div class="demo-side">
+          <div class="demo-point">
+            <div class="point-num">1</div>
+            <div class="point-text"><strong>自动汇总</strong><br>按类别整理，要买什么一目了然</div>
+          </div>
+          <div class="demo-point">
+            <div class="point-num">2</div>
+            <div class="point-text"><strong>状态管理</strong><br>家中已有、已买，随时勾选</div>
+          </div>
+          <div class="demo-point">
+            <div class="point-num">3</div>
+            <div class="point-text"><strong>多种导出</strong><br>图片、表格、文字，方便发微信或打印</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 7: 场景矩阵 -->
+    <div class="slide slide-scenes" data-duration="8000">
+      <h2 class="scenes-title fade-in-up">不止家庭，更多场景都能用</h2>
+      <div class="scenes-grid">
+        <div class="scene-card fade-in-up"><div class="scene-icon">🏠</div><div class="scene-name">家庭晚餐</div></div>
+        <div class="scene-card fade-in-up"><div class="scene-icon">🎊</div><div class="scene-name">过年过节</div></div>
+        <div class="scene-card fade-in-up"><div class="scene-icon">🏫</div><div class="scene-name">学校食堂</div></div>
+        <div class="scene-card fade-in-up"><div class="scene-icon">🏢</div><div class="scene-name">企业餐厅</div></div>
+        <div class="scene-card fade-in-up"><div class="scene-icon">🍽️</div><div class="scene-name">饭店套餐</div></div>
+        <div class="scene-card fade-in-up"><div class="scene-icon">🥂</div><div class="scene-name">宴会菜单</div></div>
+        <div class="scene-card fade-in-up"><div class="scene-icon">🏕️</div><div class="scene-name">团建露营</div></div>
+        <div class="scene-card fade-in-up"><div class="scene-icon">👵</div><div class="scene-name">社区食堂</div></div>
+      </div>
+    </div>
+
+    <!-- Slide 8: 结尾 -->
+    <div class="slide slide-end" data-duration="7000">
+      <div class="end-logo fade-in-up">烟火食间</div>
+      <h1 class="end-slogan fade-in-up">让每一份菜单<br>都能从容落地成一桌好饭</h1>
+      <div class="end-url fade-in-up">yanhuofood.com</div>
+    </div>
+  </div>
+
+  <div class="progress-timeline"><div class="progress-fill" id="progressFill"></div></div>
+
+  <div class="caption-bar">
+    <div class="caption-text" id="caption">每天我们都要做一个决定：吃什么。听起来很小，但它其实消耗了我们大量时间。想菜谱、配荤素、管忌口、写采购单……一顿两顿还好，天天如此，真的很累。</div>
+  </div>
+
+  <div class="controls">
+    <button class="control-btn" id="prevBtn">◀</button>
+    <button class="control-btn" id="playBtn">⏸</button>
+    <button class="control-btn" id="nextBtn">▶</button>
+  </div>
+
+  <script>
+    const slides = document.querySelectorAll('.slide');
+    const captionEl = document.getElementById('caption');
+    const progressFill = document.getElementById('progressFill');
+    const playBtn = document.getElementById('playBtn');
+
+    const captions = [
+      "每天我们都要做一个决定：吃什么。听起来很小，但它其实消耗了我们大量时间。想菜谱、配荤素、管忌口、写采购单……一顿两顿还好，天天如此，真的很累。",
+      "烟火食间是一个 AI 饮食规划助手。它不只会告诉你某道菜怎么做，而是直接帮你把一群人一段时间吃什么这件事规划好，而且让你吃得更健康。",
+      "比如我是一个三口之家，想规划下周一周的晚餐。我只需要选一个模板，输入人数、天数、口味、忌口和健康目标，点击生成。",
+      "几秒钟后，一份七天的菜单就出来了。每天每餐吃什么清清楚楚。如果某道菜不喜欢，或者太难买，一键替换，还能告诉 AI 原因。",
+      "更重要的是，烟火食间把健康目标直接写进菜单生成。你选了减脂，菜单就会主动控制热量。每道菜、每餐的热量都自动估算，和营养目标对比，进度一目了然。",
+      "菜单确定后，系统会自动生成采购清单。按类别整理好，家里已有的可以勾掉，要买什么一目了然。还能导出成图片发微信，或者打印带去超市。",
+      "不止家庭日常，过年过节、学校食堂、企业餐厅、饭店套餐、宴会菜单、团建露营、社区食堂……凡是需要规划一群人吃什么的地方，烟火食间都能帮上忙。",
+      "让每一份菜单，都能从容落地成一桌好饭。访问 yanhuofood.com，生成你的第一份智能菜单。"
+    ];
+
+    let current = 0;
+    let isPlaying = true;
+    let startTime = Date.now();
+    let timer = null;
+
+    function showSlide(index) {
+      slides.forEach((s, i) => {
+        s.classList.toggle('active', i === index);
+      });
+      // 重置内部动画
+      const activeSlide = slides[index];
+      activeSlide.querySelectorAll('.fade-in-up, .demo-point').forEach(el => {
+        el.classList.remove('visible');
+      });
+      setTimeout(() => {
+        activeSlide.querySelectorAll('.fade-in-up, .demo-point').forEach((el, i) => {
+          setTimeout(() => el.classList.add('visible'), i * 120);
+        });
+      }, 100);
+
+      captionEl.textContent = captions[index];
+      startTime = Date.now();
+    }
+
+    function updateProgress() {
+      const duration = parseInt(slides[current].dataset.duration);
+      const elapsed = Date.now() - startTime;
+      const pct = Math.min(100, (elapsed / duration) * 100);
+      progressFill.style.width = `${pct}%`;
+      if (isPlaying && elapsed >= duration) {
+        nextSlide();
+      }
+    }
+
+    function nextSlide() {
+      if (current < slides.length - 1) {
+        current++;
+        showSlide(current);
+      } else {
+        // 结束循环
+        current = 0;
+        showSlide(current);
+      }
+    }
+
+    function prevSlide() {
+      if (current > 0) {
+        current--;
+        showSlide(current);
+      }
+    }
+
+    document.getElementById('nextBtn').addEventListener('click', () => { nextSlide(); });
+    document.getElementById('prevBtn').addEventListener('click', () => { prevSlide(); });
+    playBtn.addEventListener('click', () => {
+      isPlaying = !isPlaying;
+      playBtn.textContent = isPlaying ? '⏸' : '▶';
+      if (isPlaying) startTime = Date.now() - (parseFloat(progressFill.style.width) / 100 * parseInt(slides[current].dataset.duration));
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight') nextSlide();
+      if (e.key === 'ArrowLeft') prevSlide();
+      if (e.key === ' ') {
+        e.preventDefault();
+        playBtn.click();
+      }
+    });
+
+    showSlide(0);
+    timer = setInterval(updateProgress, 50);
+  </script>
+</body>
+</html>

@@ -1,0 +1,33 @@
+name: Deploy Supabase Migrations
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    env:
+      SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v5
+
+      - name: Setup Supabase CLI
+        uses: supabase/setup-cli@v1
+        with:
+          version: latest
+
+      # After forking, replace with your own Supabase project ref.
+      # Get it from https://supabase.com/dashboard/project/<your-project>/settings/api
+      - name: Link to project
+        run: supabase link --project-ref meqbqonkkfdtuyngqymk
+
+      - name: List remote migrations
+        run: supabase migration list --linked
+
+      - name: Dry-run migration
+        run: supabase db push --dry-run
+
+      - name: Deploy migrations
+        run: supabase db push

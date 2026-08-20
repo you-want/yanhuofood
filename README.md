@@ -1,97 +1,106 @@
 <p align="center">
-  <a href="https://www.yanhuofood.com">
-    <img src="./assets/logo.svg" width="88" height="88" alt="烟火食间 Logo" />
-  </a>
+  <img src="./public/logo.svg" width="96" height="96" alt="烟火食间 Logo" />
 </p>
 
-<h1 align="center">烟火食间</h1>
+# 烟火食间
 
-<p align="center">
-  一款面向真实生活的 AI 饮食规划工具。把口味、忌口、健康目标和用餐场景，变成可调整的菜单、食谱与采购清单。
-</p>
+烟火食间是一个 AI 饮食规划应用，用来根据口味、忌口、健康目标、用餐人数和周期生成菜单、食谱、营养估算和食材清单。
 
-<p align="center">
-  <a href="https://www.yanhuofood.com"><strong>在线体验</strong></a>
-  ·
-  <a href="https://github.com/you-want/yanhuofood/issues/new/choose">反馈问题</a>
-  ·
-  <a href="./ROADMAP.md">产品路线图</a>
-</p>
+## 本地开发
 
-<p align="center">
-  <a href="https://github.com/you-want/yanhuofood/stargazers"><img alt="GitHub Stars" src="https://img.shields.io/github/stars/you-want/yanhuofood?style=flat-square&color=047857" /></a>
-  <a href="https://github.com/you-want/yanhuofood/issues"><img alt="GitHub Issues" src="https://img.shields.io/github/issues/you-want/yanhuofood?style=flat-square" /></a>
-  <img alt="Source status" src="https://img.shields.io/badge/source-closed%20for%20now-f59e0b?style=flat-square" />
-</p>
+```bash
+pnpm install
 
-![烟火食间：AI 家庭饮食规划](./assets/cover.png)
-
-> [!IMPORTANT]
-> 本仓库是烟火食间的公开产品与社区仓库，用于发布产品信息、路线图、更新记录和收集反馈。应用源码目前暂未开放，本仓库不包含生产源码、模型提示词、数据库配置或部署凭据。
-
-## 产品一览
-
-### 先把现实条件说清楚
-
-![菜单生成设置：口味、健康目标、周期、餐次和预算](./assets/screenshots/menu-settings.png)
-
-菜单不是凭空生成的。菜系、忌口、健康目标、人数、周期、餐次、预算和烹饪时间，都可以在生成前调整。
-
-### 再把计划变成能执行的菜单
-
-![生成后的周菜单、营养概览和历史菜单](./assets/screenshots/weekly-menu.png)
-
-生成结果可以继续编辑、换菜、查看做法，并汇总成采购清单。历史菜单也会保留下来，方便复用和调整。
-
-想了解这个产品为什么现在暂不开源、以后是否可能开源，可以阅读：[我做了一个 AI 菜单工具：先把产品做好，再考虑开源](./docs/blog/build-product-first.md)。
-
-## 为什么做烟火食间
-
-“今天吃什么”只是问题的开头。真正困难的是同时考虑家人的口味与忌口、营养目标、时间、预算、食材复用，以及最后能否顺利买齐和做出来。
-
-烟火食间希望把这些零散决策连接成一条可执行的流程：
-
-```text
-饮食偏好 -> AI 菜单 -> 菜品做法 -> 食材汇总 -> 采购执行 -> 反馈复用
+pnpm supabase:start
+pnpm dev
 ```
 
-## 已有能力
+默认访问：
 
-| 模块 | 能力 |
-| --- | --- |
-| 智能菜单 | 根据菜系、忌口、健康目标、人数、餐次和场景生成菜单 |
-| 食谱详情 | 展示食材、步骤、营养估算、菜品图片和制作视频搜索入口 |
-| 采购清单 | 自动汇总菜单食材，支持待采购、已购买和家中已有状态 |
-| 灵活调整 | 支持换菜、整餐替换、手动编辑和菜品反馈 |
-| 多种场景 | 覆盖日常家庭、旅行、工作外食和集中备菜等需求 |
-| 模型选择 | 支持服务端模型，以及仅保存在当前浏览器的个人模型配置 |
+```bash
+http://localhost:3000
+```
 
-## 参与方式
+如果 3000 被占用，Next.js 会自动使用下一个可用端口。
 
-- 觉得产品方向有价值，可以给仓库一个 Star。
-- 遇到问题，请使用[问题反馈模板](https://github.com/you-want/yanhuofood/issues/new/choose)。
-- 有新的生活场景或功能想法，可以提交 Feature Request。
-- 想了解近期安排，请查看[产品路线图](./ROADMAP.md)和[更新记录](./CHANGELOG.md)。
-- 想了解产品背后的想法，可以阅读[开发者博客](./docs/blog/build-product-first.md)。
+## 环境变量
 
-本仓库当前不接收应用源码 Pull Request。文档修正、反馈整理和可复现的问题描述仍然非常欢迎，具体请阅读[参与指南](./CONTRIBUTING.md)。
+复制 `.env.example` 到 `.env.local`：
 
-## 关于源码
+```bash
+cp .env.example .env.local
+```
 
-烟火食间目前仍处于快速迭代阶段，核心应用源码暂时保持私有。我们会持续评估开放部分基础模块、数据格式或工具组件的可行性，但当前没有承诺完整开源的时间表。
+配置：
 
-公开仓库的目标是保持产品进展透明，同时为用户提供稳定、可追踪的反馈渠道。
+```bash
+NEXT_PUBLIC_SUPABASE_URL=
+NEXT_PUBLIC_SUPABASE_ANON_KEY=
+SUPABASE_SERVICE_ROLE_KEY=
+NEXT_PUBLIC_SITE_URL=http://localhost:3000
+OPENAI_API_KEY=
+OPENAI_BASE_URL=
+OPENAI_MODEL=gpt-4o-mini
+```
 
-## 数据与安全
+如果没有配置 OpenAI Key，菜单生成会使用样例菜单兜底。
 
-浏览器模型配置仅保存在当前浏览器中，不会提交到本仓库。请不要在 Issue、截图或日志中发布 API Key、访问令牌、个人健康信息或其他敏感数据。更多说明见[安全政策](./SECURITY.md)和[常见问题](./docs/faq.md)。
+## 模型配置
 
-## English
+项目支持两种模型配置：
 
-Yanhuo Food is an AI-assisted meal planning product that turns dietary preferences, health goals, and real-life constraints into adjustable menus, recipes, and shopping lists.
+- 服务器默认配置：通过 `.env.local` 或 Vercel 环境变量配置。
+- 用户本浏览器配置：在偏好页配置，保存到当前浏览器 localStorage，不会写入服务器或 Supabase。
 
-This is the public product and community repository. The application source code is currently closed.
+## 常用命令
 
-## Copyright
+```bash
+pnpm lint
+pnpm build
+pnpm test:e2e
+pnpm dev
+```
 
-Copyright (c) 2026 烟火食间. All rights reserved. See [LICENSE](./LICENSE).
+普通 E2E 使用固定结构化菜单，不依赖真实模型服务。真实模型成功率、样例兜底率和耗时使用 `pnpm baseline:menus` 单独验证。
+
+## 部署
+
+推荐部署到 Vercel。详见 [部署说明](./docs/deployment/deployment.md)。
+
+项目设计、产品规划、实施记录和运维说明统一收录在 [docs/](./docs/README.md)。
+
+## 附近吃什么（MVP）
+
+`/nearby` 页面可以在用户主动授权定位，或输入公司地址后，搜索附近真实餐饮 POI，并按距离、预算、评分、近期选择和本地反馈进行筛选与加权随机推荐。浏览器定位成功后，页面会通过高德逆地理编码显示可读的详细地址，同时展示坐标系、经纬度和定位精度，方便用户核对位置是否准确。
+
+地图服务支持两种配置方式：
+
+1. **用户本浏览器配置**：在 `/nearby` 页填写自己的高德 **Web 服务 Key**，保存在当前浏览器，适合个人部署或站点暂不承担地图调用费用的场景。
+2. **站点服务端配置**：部署方可选在 `.env.local` 或线上环境变量中配置公共 Key，所有用户默认使用。用户本地 Key 存在时优先使用本地 Key。
+
+服务端公共 Key 是可选配置：
+
+```bash
+AMAP_WEB_SERVICE_KEY=your_amap_webservice_key
+# 可选，默认 8000ms
+AMAP_REQUEST_TIMEOUT_MS=8000
+# 可选，站点公共 Key 每日总调用单位上限；0 或不配置表示关闭应用侧限制
+AMAP_PUBLIC_DAILY_REQUEST_LIMIT=150
+AMAP_PUBLIC_QUOTA_TIME_ZONE=Asia/Shanghai
+AMAP_PUBLIC_QUOTA_BUCKET=production
+```
+
+注意：
+
+- 站点公共 `AMAP_WEB_SERVICE_KEY` 只能在服务端使用，不要改成 `NEXT_PUBLIC_*` 变量。
+- 建议公共 Key 初始设置 `AMAP_PUBLIC_DAILY_REQUEST_LIMIT=150`。这里限制的是高德上游请求单位，不是按钮点击次数；一次“GPS 定位 → 详细地址 → 搜索”通常消耗 3 个单位，约等于每天 50 次完整流程。
+- 公共额度只限制站点 Key。用户配置自己的本地 Key 时不占用站点额度，也不会写入公共计数器。
+- 启用公共额度限制前必须应用 `supabase/migrations/20260722001000_nearby_public_amap_daily_quota.sql`。计数器只保存日期、环境 bucket 和汇总调用单位，不保存用户、地址、坐标或 Key。
+- 当额度保护已开启但 Supabase 或计数 RPC 不可用时，服务端会暂停公共 Key，避免产生不可控费用，并引导用户使用自己的 Key。
+- 用户 Key 保存键名为 `yanhuofood.localAmapConfig`，使用带版本号并经 Zod 校验的数据结构。
+- 用户 Key 不写入 Supabase；地址解析、当前位置逆地理编码或附近搜索时只随本次请求临时发送给当前站点后端，服务端不保存。
+- 当站点没有公共 Key、用户也没有配置本地 Key 时，页面会显示申请与配置说明，并阻止搜索；接口仍会返回 `MAP_PROVIDER_NOT_CONFIGURED`。
+- 申请 Key 时服务平台必须选择“Web 服务”，不是“Web JS API”。
+- 如果当前位置的详细地址解析失败，页面会保留浏览器 GPS 坐标继续搜索，并明确提示用户重新定位或改用公司地址。
+- MVP 不提供配送范围、配送费、起送价、实时菜单、实时优惠或自动下单。
+- 常用公司位置、筛选偏好、最近选择和门店反馈只保存在当前浏览器 localStorage，不写入 Supabase。

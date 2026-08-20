@@ -1,0 +1,28 @@
+name: Configure Supabase Auth URLs
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/supabase-auth-config.yml"
+      - "scripts/configure-supabase-auth.mjs"
+  workflow_dispatch:
+
+jobs:
+  configure:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    env:
+      SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
+      # After forking, replace with your own Supabase project ref.
+      # Get it from https://supabase.com/dashboard/project/<your-project>/settings/api
+      SUPABASE_PROJECT_REF: meqbqonkkfdtuyngqymk
+      SUPABASE_AUTH_SITE_URL: https://www.yanhuofood.com
+      SUPABASE_AUTH_REDIRECT_URLS: https://www.yanhuofood.com/account,http://localhost:3000/account,http://127.0.0.1:3000/account
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v5
+
+      - name: Configure Auth Site URL and redirect allow list
+        run: node scripts/configure-supabase-auth.mjs

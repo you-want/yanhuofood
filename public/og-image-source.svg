@@ -1,0 +1,58 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="630" fill="#F7F5EF"/>
+  <rect x="0" y="0" width="1200" height="18" fill="#047857"/>
+  <rect x="72" y="76" width="84" height="84" rx="20" fill="#047857"/>
+  <path d="M94 116C94 103.85 103.85 94 116 94C128.15 94 138 103.85 138 116V119H94V116Z" fill="#FDF7E7"/>
+  <path d="M88 119H144V125C144 140.464 131.464 153 116 153C100.536 153 88 140.464 88 125V119Z" fill="#F59E0B"/>
+  <path d="M104 88C101 82 103 77 108 72M119 87C116 81 119 76 125 71M134 89C131 83 134 78 139 74" stroke="#FBBF24" stroke-width="5" stroke-linecap="round"/>
+
+  <text x="184" y="119" fill="#1C1917" font-family="Arial, 'PingFang SC', sans-serif" font-size="48" font-weight="700">烟火食间</text>
+  <text x="184" y="154" fill="#047857" font-family="Arial, 'PingFang SC', sans-serif" font-size="20" font-weight="600">AI 家庭饮食规划</text>
+
+  <text x="72" y="255" fill="#1C1917" font-family="Arial, 'PingFang SC', sans-serif" font-size="54" font-weight="700">吃什么、怎么买、怎么做</text>
+  <text x="72" y="306" fill="#57534E" font-family="Arial, 'PingFang SC', sans-serif" font-size="25">从一份可调整的菜单，走到真正能执行的采购清单</text>
+
+  <rect x="72" y="370" width="176" height="52" rx="8" fill="#DCFCE7"/>
+  <circle cx="103" cy="396" r="11" fill="#047857"/>
+  <path d="M98 396L102 400L109 391" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="126" y="404" fill="#14532D" font-family="Arial, 'PingFang SC', sans-serif" font-size="20" font-weight="600">智能菜单</text>
+
+  <rect x="264" y="370" width="176" height="52" rx="8" fill="#FEF3C7"/>
+  <circle cx="295" cy="396" r="11" fill="#D97706"/>
+  <path d="M290 396L294 400L301 391" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="318" y="404" fill="#78350F" font-family="Arial, 'PingFang SC', sans-serif" font-size="20" font-weight="600">一键采购</text>
+
+  <rect x="456" y="370" width="176" height="52" rx="8" fill="#FEE2E2"/>
+  <circle cx="487" cy="396" r="11" fill="#DC2626"/>
+  <path d="M482 396L486 400L493 391" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="510" y="404" fill="#7F1D1D" font-family="Arial, 'PingFang SC', sans-serif" font-size="20" font-weight="600">反馈复用</text>
+
+  <text x="72" y="520" fill="#78716C" font-family="Arial, 'PingFang SC', sans-serif" font-size="20">www.yanhuofood.com</text>
+
+  <rect x="702" y="68" width="426" height="494" rx="18" fill="white" stroke="#D6D3D1" stroke-width="2"/>
+  <rect x="702" y="68" width="426" height="68" rx="18" fill="#047857"/>
+  <rect x="702" y="118" width="426" height="18" fill="#047857"/>
+  <text x="734" y="111" fill="white" font-family="Arial, 'PingFang SC', sans-serif" font-size="23" font-weight="700">本周家庭菜单</text>
+  <rect x="1010" y="88" width="84" height="28" rx="6" fill="#D1FAE5"/>
+  <text x="1033" y="108" fill="#065F46" font-family="Arial, 'PingFang SC', sans-serif" font-size="14" font-weight="700">7 天</text>
+
+  <text x="734" y="178" fill="#78716C" font-family="Arial, 'PingFang SC', sans-serif" font-size="16" font-weight="600">周一</text>
+  <rect x="734" y="194" width="362" height="58" rx="8" fill="#F5F5F4"/>
+  <circle cx="766" cy="223" r="16" fill="#FEF3C7"/>
+  <path d="M758 226C762 218 770 218 774 226" stroke="#D97706" stroke-width="3" stroke-linecap="round"/>
+  <text x="795" y="218" fill="#1C1917" font-family="Arial, 'PingFang SC', sans-serif" font-size="17" font-weight="700">番茄牛腩 · 清炒时蔬</text>
+  <text x="795" y="239" fill="#78716C" font-family="Arial, 'PingFang SC', sans-serif" font-size="14">家常均衡 · 45 分钟</text>
+
+  <text x="734" y="290" fill="#78716C" font-family="Arial, 'PingFang SC', sans-serif" font-size="16" font-weight="600">周二</text>
+  <rect x="734" y="306" width="362" height="58" rx="8" fill="#F5F5F4"/>
+  <circle cx="766" cy="335" r="16" fill="#DCFCE7"/>
+  <path d="M758 338C762 330 770 330 774 338" stroke="#047857" stroke-width="3" stroke-linecap="round"/>
+  <text x="795" y="330" fill="#1C1917" font-family="Arial, 'PingFang SC', sans-serif" font-size="17" font-weight="700">香菇鸡肉 · 蒜蓉生菜</text>
+  <text x="795" y="351" fill="#78716C" font-family="Arial, 'PingFang SC', sans-serif" font-size="14">少油快手 · 30 分钟</text>
+
+  <rect x="734" y="404" width="362" height="118" rx="10" fill="#FFFBEB" stroke="#FDE68A"/>
+  <text x="758" y="438" fill="#92400E" font-family="Arial, 'PingFang SC', sans-serif" font-size="17" font-weight="700">采购进度</text>
+  <rect x="758" y="458" width="314" height="10" rx="5" fill="#E7E5E4"/>
+  <rect x="758" y="458" width="221" height="10" rx="5" fill="#F59E0B"/>
+  <text x="758" y="498" fill="#57534E" font-family="Arial, 'PingFang SC', sans-serif" font-size="15">已准备 14 / 20 项 · 家中已有 3 项</text>
+</svg>
