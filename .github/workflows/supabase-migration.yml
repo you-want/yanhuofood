@@ -6,28 +6,39 @@ on:
 
 jobs:
   deploy:
+    if: secrets.SUPABASE_ACCESS_TOKEN != ''
     runs-on: ubuntu-latest
     env:
       SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
     steps:
+      - name: Skip when no Supabase token is configured
+        if: secrets.SUPABASE_ACCESS_TOKEN == ''
+        run: echo "SUPABASE_ACCESS_TOKEN not set — skipping Supabase migration deploy. Configure the secret in your repository settings to enable auto-deployment."
+
       - name: Checkout code
         uses: actions/checkout@v5
+        if: secrets.SUPABASE_ACCESS_TOKEN != ''
 
       - name: Setup Supabase CLI
         uses: supabase/setup-cli@v1
         with:
           version: latest
+        if: secrets.SUPABASE_ACCESS_TOKEN != ''
 
       # After forking, replace with your own Supabase project ref.
       # Get it from https://supabase.com/dashboard/project/<your-project>/settings/api
       - name: Link to project
         run: supabase link --project-ref meqbqonkkfdtuyngqymk
+        if: secrets.SUPABASE_ACCESS_TOKEN != ''
 
       - name: List remote migrations
         run: supabase migration list --linked
+        if: secrets.SUPABASE_ACCESS_TOKEN != ''
 
       - name: Dry-run migration
         run: supabase db push --dry-run
+        if: secrets.SUPABASE_ACCESS_TOKEN != ''
 
       - name: Deploy migrations
         run: supabase db push
+        if: secrets.SUPABASE_ACCESS_TOKEN != ''

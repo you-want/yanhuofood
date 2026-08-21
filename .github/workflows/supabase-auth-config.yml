@@ -10,6 +10,7 @@ on:
 
 jobs:
   configure:
+    if: secrets.SUPABASE_ACCESS_TOKEN != ''
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -21,8 +22,14 @@ jobs:
       SUPABASE_AUTH_SITE_URL: https://www.yanhuofood.com
       SUPABASE_AUTH_REDIRECT_URLS: https://www.yanhuofood.com/account,http://localhost:3000/account,http://127.0.0.1:3000/account
     steps:
+      - name: Skip when no Supabase token is configured
+        if: secrets.SUPABASE_ACCESS_TOKEN == ''
+        run: echo "SUPABASE_ACCESS_TOKEN not set — skipping auth URL configuration. Configure the secret in your repository settings to enable auto-configuration."
+
       - name: Checkout code
         uses: actions/checkout@v5
+        if: secrets.SUPABASE_ACCESS_TOKEN != ''
 
       - name: Configure Auth Site URL and redirect allow list
         run: node scripts/configure-supabase-auth.mjs
+        if: secrets.SUPABASE_ACCESS_TOKEN != ''
